@@ -1,5 +1,5 @@
 FROM debian:wheezy
-MAINTAINER WebpackContrib <@d3viant0ne>
+MAINTAINER WebpackContrib
 
 USER root
 
@@ -32,25 +32,29 @@ RUN JQ_URL=$(curl --location --fail --retry 3 https://api.github.com/repos/stedo
 
 # Install Docker
 RUN set -ex \
-  && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/  | grep -P -o 'docker-\d+\.\d+\.\d+-ce\.tgz' | head -n 1) \
+  && export DOCKER_VERSION=$(curl --silent --fail --retry 3 https://download.docker.com/linux/static/stable/x86_64/ | grep -o -e 'docker-[.0-9]*-ce\.tgz' | sort -r | head -n 1) \
   && DOCKER_URL="https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}" \
   && echo Docker URL: $DOCKER_URL \
   && curl --silent --show-error --location --fail --retry 3 --output /tmp/docker.tgz "${DOCKER_URL}" \
   && ls -lha /tmp/docker.tgz \
   && tar -xz -C /tmp -f /tmp/docker.tgz \
   && mv /tmp/docker/* /usr/bin \
-  && rm -rf /tmp/docker /tmp/docker.tgz
+  && rm -rf /tmp/docker /tmp/docker.tgz \
+  && which docker \
+  && (docker version || true)
 
 # docker compose
-RUN COMPOSE_URL=$(curl --location --fail --retry 3 https://api.github.com/repos/docker/compose/releases/latest | jq -r '.assets[] | select(.name == "docker-compose-Linux-x86_64") | .browser_download_url') \
+RUN COMPOSE_URL="https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/docker-compose-latest" \
   && curl --silent --show-error --location --fail --retry 3 --output /usr/bin/docker-compose $COMPOSE_URL \
-  && chmod +x /usr/bin/docker-compose
+  && chmod +x /usr/bin/docker-compose \
+  && docker-compose version
 
 # install dockerize
-RUN DOCKERIZE_URL=$(curl --location --fail --retry 3 https://api.github.com/repos/jwilder/dockerize/releases/latest | jq -r '.assets[] | select(.name | startswith("dockerize-linux-amd64")) | .browser_download_url') \
+RUN DOCKERIZE_URL="https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/dockerize-latest.tar.gz" \
   && curl --silent --show-error --location --fail --retry 3 --output /tmp/dockerize-linux-amd64.tar.gz $DOCKERIZE_URL \
   && tar -C /usr/local/bin -xzvf /tmp/dockerize-linux-amd64.tar.gz \
-  && rm -rf /tmp/dockerize-linux-amd64.tar.gz
+  && rm -rf /tmp/dockerize-linux-amd64.tar.gz \
+  && dockerize --version
 
 RUN groupadd --gid 3434 circleci \
   && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci \
