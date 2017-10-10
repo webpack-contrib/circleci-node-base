@@ -1,5 +1,4 @@
 [![tests][tests]][tests-url]
-[![chat][chat]][chat-url]
 
 <div align="center">
   <img width="200" height="200"
@@ -9,6 +8,7 @@
       src="https://cdn.worldvectorlogo.com/logos/webpack-icon.svg">
   </a>
   <h1>CircleCI 2.0 base build container</h1>
+  [![tests][tests]][tests-url]
   <p>Docker Repository for the WebpackContrib Debian Jessie based CircleCI build & deployment Image.<p>
 </div>
 
@@ -31,6 +31,3 @@
 
 [tests]: https://circleci.com/gh/webpack-contrib/circleci-node-base.svg?style=svg
 [tests-url]: https://circleci.com/gh/webpack-contrib/circleci-node-base
-
-[chat]: https://badges.gitter.im/webpack/webpack.svg
-[chat-url]: https://gitter.im/webpack/webpack
