@@ -8,10 +8,8 @@
       src="https://cdn.worldvectorlogo.com/logos/webpack-icon.svg">
   </a>
   <h1>CircleCI 2.0 base build container</h1>
-  [![tests][tests]][tests-url]
   <p>Docker Repository for the WebpackContrib Debian Jessie based CircleCI build & deployment Image.<p>
 </div>
-
 
 <h2 align="center">Usage</h2>
 
