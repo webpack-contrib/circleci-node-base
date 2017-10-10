@@ -29,8 +29,8 @@
 
 > This container does not have a headless browser configuration
 
-[tests]: http://img.shields.io/travis/webpack-contrib/istanbul-instrumenter-loader.svg
-[tests-url]: https://travis-ci.org/webpack-contrib/istanbul-instrumenter-loader
+[tests]: https://circleci.com/gh/webpack-contrib/circleci-node-base.svg?style=svg
+[tests-url]: https://circleci.com/gh/webpack-contrib/circleci-node-base
 
 [chat]: https://badges.gitter.im/webpack/webpack.svg
 [chat-url]: https://gitter.im/webpack/webpack
