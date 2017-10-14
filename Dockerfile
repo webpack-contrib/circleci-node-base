@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM ubuntu:xenial
 MAINTAINER WebpackContrib
 
 USER root
